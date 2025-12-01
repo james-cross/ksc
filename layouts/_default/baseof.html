@@ -5,9 +5,25 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<title>{{ if .IsHome }}{{ $.Site.Data.company.title }} - Solicitors &amp; Notaries{{ else }}{{ .Title }} | {{ $.Site.Data.company.title }}{{ end }}</title>
-		<meta name="viewport" content="width=device-width,minimum-scale=1">
-		<meta property="og:image" content="/uploads/og.jpg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}">
+		<link rel="canonical" href="{{ .Permalink }}">
+
+		{{/* Open Graph tags */}}
+		<meta property="og:title" content="{{ if .IsHome }}{{ $.Site.Data.company.title }} - Solicitors & Notaries{{ else }}{{ .Title }} | {{ $.Site.Data.company.title }}{{ end }}">
+		<meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}">
+		<meta property="og:url" content="{{ .Permalink }}">
+		<meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}">
+		<meta property="og:image" content="{{ .Site.BaseURL }}uploads/og.jpg">
+		<meta property="og:site_name" content="{{ $.Site.Data.company.title }}">
+		<meta property="og:locale" content="en_IE">
+
+		{{/* Twitter Card tags */}}
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:title" content="{{ if .IsHome }}{{ $.Site.Data.company.title }} - Solicitors & Notaries{{ else }}{{ .Title }}{{ end }}">
+		<meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}">
+		<meta name="twitter:image" content="{{ .Site.BaseURL }}uploads/og.jpg">
+
 		{{ hugo.Generator }}
 
 		{{/* Performance: Preconnect to external resources */}}
@@ -39,9 +55,7 @@
 			{{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
 		{{ end -}}
 
-		{{- template "_internal/opengraph.html" . -}}
 		{{- template "_internal/schema.html" . -}}
-		{{- template "_internal/twitter_cards.html" . -}}
 
 		{{/* JSON-LD Structured Data for Local Business */}}
 		{{ if .IsHome }}
@@ -89,6 +103,7 @@
 
 		<main id="main-content" class="main">
 			<div class="container">
+				{{ partial "breadcrumbs.html" . }}
 				{{ block "page-header" . }}{{ partial "page-header.html" . }}{{ end }}
 				{{ block "main" . }}{{ end }}
 			</div>

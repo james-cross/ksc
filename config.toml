@@ -1,4 +1,4 @@
-baseURL = "/"
+baseURL = "https://ksc.ie/"
 languageCode = "en-IE"
 summaryLength = 20
 disqusShortname = ""

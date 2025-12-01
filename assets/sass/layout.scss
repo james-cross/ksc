@@ -17,6 +17,53 @@ body {
 	border-radius: $border-radius;
 }
 
+// Breadcrumbs
+.breadcrumbs {
+	margin-bottom: $spacing-xs;
+	font-size: 1.6rem;
+
+	ol {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: $spacing-xs;
+	}
+
+	li {
+		display: flex;
+		align-items: center;
+
+		&:not(:last-child)::after {
+			content: "/";
+			margin-left: $spacing-xs;
+			color: $color-text-light;
+		}
+
+		&[aria-current="page"] {
+			color: $color-text-light;
+		}
+	}
+
+	a {
+		color: $color-primary;
+
+		&:hover {
+			color: $color-accent;
+		}
+	}
+}
+
+// Page title (h1 on content pages)
+h1.page-title {
+	font-size: 3.6rem;
+	line-height: 1.5;
+	float: none;
+	color: $color-text;
+	margin: 0 0 $spacing-md 0;
+}
+
 // Header
 header {
 	background-repeat: no-repeat;
@@ -27,6 +74,34 @@ header {
 
 	@media (max-width: $mobile-break) {
 		background-repeat: repeat;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 280px;
+		padding-top: 0;
+		padding-bottom: 0;
+
+		.container,
+		nav {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+		}
+
+		// Hide the desktop heading elements that take up space
+		h1,
+		.sub-heading {
+			display: none;
+		}
+
+		.minor-heading {
+			margin: 0;
+		}
+
+		.minor-sub-heading {
+			margin: 0;
+		}
 	}
 
 	@media (min-width: $mobile-break) {
@@ -465,6 +540,14 @@ main {
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity $transition-fast, visibility $transition-fast;
+
+	&.is-visible {
+		opacity: 1;
+		visibility: visible;
+	}
 
 	&:focus {
 		outline: 2px solid $color-text;

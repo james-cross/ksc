@@ -1,5 +1,5 @@
 {{ if .Params.title }}
 	<div class="page-header">
-		<h2>{{ .Params.title }}</h2>
+		{{ if not .IsHome }}<h1 class="page-title">{{ .Params.title }}</h1>{{ else }}<h2>{{ .Params.title }}</h2>{{ end }}
 	</div>
 {{ end }}

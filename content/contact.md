@@ -1,5 +1,6 @@
 ---
 title: Contact
+description: "Contact Kenny Stephenson Chapman solicitors in Waterford. Call 051-875855 or visit our office at Park House, Newtown for expert legal advice."
 call_to_action: Map
 large_header: false
 type: contact

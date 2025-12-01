@@ -1,5 +1,6 @@
 ---
 title: Practice Areas
+description: "Our Waterford solicitors offer conveyancing, probate, family law, personal injury, commercial law, criminal defence and notary public services."
 call_to_action: Contact
 large_header: false
 type: practice-areas
@@ -14,7 +15,7 @@ Our specialised team has the skill and experience to provide a range of services
 
 ### Conveyancing
 
-Conveyancing involves the legal process of transferring property ownership. Our meticulous attention to detail helps ensure a smooth property transfer process.
+Conveyancing involves the legal process of transferring property ownership. Our meticulous attention to detail helps ensure a smooth property transfer process. [Brandon Meo](/brandon-meo/) specialises in this area.
 
 ![conveyancing image](/uploads/conveyancing.jpg)
 
@@ -38,7 +39,7 @@ In cases of personal injury, our team is dedicated to helping you seek compensat
 
 ### Commercial/Company and Business Law
 
-From business formation to contract drafting and negotiations, our business law expertise assists in safeguarding your commercial interests and ensuring your business transactions are legally sound.
+From business formation to contract drafting and negotiations, our business law expertise assists in safeguarding your commercial interests and ensuring your business transactions are legally sound. [Mark Walsh](/mark-walsh/) leads our commercial law practice.
 
 ![commercial image](/uploads/commercial.jpg)
 
@@ -64,7 +65,7 @@ When disputes arise over contracts, debts, or other civil issues, we provide str
 
 ### Employment Law
 
-Employment law governs workplace relationships, ensuring fair treatment of employees and employers alike. Our expertise helps resolve employment disputes whilst ensuring compliance with the relevant statutory provisions. 
+Employment law governs workplace relationships, ensuring fair treatment of employees and employers alike. Our expertise helps resolve employment disputes whilst ensuring compliance with the relevant statutory provisions. [Mark Walsh](/mark-walsh/) has extensive experience in employment matters. 
 
 ### Mortgages and Remortgages
 
@@ -76,5 +77,5 @@ Our services in landlord and tenant law address the legal complexities of rental
 
 ### Notary Public Services
 
-One of our partners is a Notary Public, enabling us to provide the valuable service of authenticating and legalizing documents, usually involving foreign and international business. Whether for individuals or corporate entities, our Notary Public can assist in ensuring the validity and legality of documents on an international level. 
+[Brian McCarthy](/brian-mccarthy/) is a Notary Public, enabling us to provide the valuable service of authenticating and legalising documents, usually involving foreign and international business. Whether for individuals or corporate entities, our Notary Public can assist in ensuring the validity and legality of documents on an international level. 
 
