@@ -3,7 +3,6 @@ description:
   Brandon is a qualified solicitor with a First Class Honours degree, specialising in conveyancing and offering skilled advocacy across a broad range of legal areas.
 image: /uploads/brandon.jpg
 link: /brandon-meo
-order:
-  weight: 5
+weight: 3
 credentials: BA Hons
 is_staff_member: true

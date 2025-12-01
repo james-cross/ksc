@@ -40,13 +40,6 @@
 				<label>Email Address</label>
 				<p class="contact-info"><a href="mailto:{{ $.Site.Data.company.contact_email_address }}">{{ $.Site.Data.company.contact_email_address }}</a></p>
 
-				<address class="contact-info">
-					{{ $postal_address_parts := split $.Site.Data.company.postal_address "," }}
-					{{ range $i, $part := $postal_address_parts }}
-						{{ if $i }}<br>{{ end }}
-						{{ $part }}
-					{{ end }}
-				</address>
 				<label>Address</label>
 				<address class="contact-info">
 					{{ $address_parts := split $.Site.Data.company.address "," }}

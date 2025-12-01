@@ -2,7 +2,12 @@
 	<div class="container">
 		<nav aria-label="Main navigation">
 			{{ if .Site.Menus.main }}
-			<ul>
+			<button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+				<span class="nav-toggle-bar"></span>
+				<span class="nav-toggle-bar"></span>
+				<span class="nav-toggle-bar"></span>
+			</button>
+			<ul id="nav-menu" class="nav-menu">
 				{{ $currentPage := . }}
 				{{ range .Site.Menus.main }}
 				<li>

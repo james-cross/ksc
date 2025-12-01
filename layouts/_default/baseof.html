@@ -15,11 +15,9 @@
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quattrocento&family=Vollkorn:ital,wght@0,400;0,700;1,400;1,700&display=swap">
 
-		{{/* Favicon set */}}
-		<link rel="apple-touch-icon" sizes="180x180" href="/uploads/apple-touch-icon.png">
-		<link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.png">
-		<link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.png">
-		<link rel="icon" href="/uploads/favicon.ico">
+		{{/* Favicon */}}
+		<link rel="icon" type="image/x-icon" href="/uploads/favicon.ico">
+		<link rel="shortcut icon" href="/uploads/favicon.ico">
 
 		{{/* CSS with minification in production */}}
 		{{ $sass := resources.Get "/sass/main.scss" }}
@@ -110,6 +108,9 @@
 		{{ end }}
 
 		{{ block "footer" . }}{{ partialCached "site-footer.html" . }}{{ end }}
+
+		{{/* Mobile navigation */}}
+		<script src="{{ "js/mobile-nav.js" | relURL }}"></script>
 
 		{{/* Netlify Identity widget for CMS authentication */}}
 		<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
