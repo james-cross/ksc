@@ -1,5 +1,6 @@
 ---
 title: Brian McCarthy
+type: staff
 call_to_action: Contact
 large_header: false
 ---

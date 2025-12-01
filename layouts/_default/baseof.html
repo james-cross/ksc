@@ -1,23 +1,37 @@
 <!DOCTYPE html>
 
-<html lang="{{ $.Site.LanguageCode | default "en" }}">
+<html lang="{{ $.Site.LanguageCode | default "en-IE" }}">
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<title>Kenny Stephenson Chapman - Solicitors & Notaries</title>
+		<title>{{ if .IsHome }}{{ $.Site.Data.company.title }} - Solicitors &amp; Notaries{{ else }}{{ .Title }} | {{ $.Site.Data.company.title }}{{ end }}</title>
 		<meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta property="og:image" content="/uploads/og.jpg" />
+		<meta property="og:image" content="/uploads/og.jpg" />
 		<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}">
 		{{ hugo.Generator }}
 
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quattrocento|Vollkorn:400,400i,700,700i">
-		<link rel="apple-touch-icon" href="/uploads/favicon.ico">
-		<link rel="icon" type="image/png" href="/uploads/favicon.ico" sizes="192x192">
-		<link rel="icon" type="image/png" href="/uploads/favicon.ico">
+		{{/* Performance: Preconnect to external resources */}}
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quattrocento&family=Vollkorn:ital,wght@0,400;0,700;1,400;1,700&display=swap">
 
+		{{/* Favicon set */}}
+		<link rel="apple-touch-icon" sizes="180x180" href="/uploads/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.png">
+		<link rel="icon" href="/uploads/favicon.ico">
+
+		{{/* CSS with minification in production */}}
 		{{ $sass := resources.Get "/sass/main.scss" }}
-		{{ $style := $sass | resources.ToCSS }}
-		<link rel="stylesheet" href="{{ $style.Permalink }}">
+		{{ $cssOptions := dict "outputStyle" "expanded" }}
+		{{ if eq (getenv "HUGO_ENV") "production" }}
+			{{ $cssOptions = dict "outputStyle" "compressed" }}
+		{{ end }}
+		{{ $style := $sass | css.Sass $cssOptions }}
+		{{ if eq (getenv "HUGO_ENV") "production" }}
+			{{ $style = $style | fingerprint }}
+		{{ end }}
+		<link rel="stylesheet" href="{{ $style.RelPermalink }}">
 
 		{{ range .Site.Params.custom_css }}
 			<link rel="stylesheet" href="{{ relURL (.) }}">
@@ -31,20 +45,56 @@
 		{{- template "_internal/schema.html" . -}}
 		{{- template "_internal/twitter_cards.html" . -}}
 
+		{{/* JSON-LD Structured Data for Local Business */}}
+		{{ if .IsHome }}
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "LegalService",
+			"name": "{{ $.Site.Data.company.title }}",
+			"description": "{{ $.Site.Data.company.description }}",
+			"url": "{{ .Site.BaseURL }}",
+			"telephone": "{{ $.Site.Data.company.phone }}",
+			"email": "{{ $.Site.Data.company.contact_email_address }}",
+			"address": {
+				"@type": "PostalAddress",
+				"streetAddress": "Park House, Newtown",
+				"addressLocality": "Waterford",
+				"addressCountry": "IE"
+			},
+			"geo": {
+				"@type": "GeoCoordinates",
+				"latitude": "52.2578443",
+				"longitude": "-7.1027945"
+			},
+			"openingHoursSpecification": {
+				"@type": "OpeningHoursSpecification",
+				"dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+				"opens": "09:00",
+				"closes": "17:30"
+			},
+			"sameAs": [
+				{{ range $index, $social := $.Site.Data.company.social_links }}{{ if $index }},{{ end }}"{{ $social.link }}"{{ end }}
+			]
+		}
+		</script>
+		{{ end }}
+
 		{{ if eq (getenv "HUGO_ENV") "production" | or (eq .Site.Params.env "production") }}
-			{{ template "_internal/google_analytics_async.html" . }}
+			{{ template "_internal/google_analytics.html" . }}
 		{{ end }}
 	</head>
 
 	<body>
+		<a class="skip-link" href="#main-content">Skip to main content</a>
 		{{ block "header" . }}{{ partial "site-header.html" . }}{{ end }}
 
-		<section class="main">
+		<main id="main-content" class="main">
 			<div class="container">
 				{{ block "page-header" . }}{{ partial "page-header.html" . }}{{ end }}
 				{{ block "main" . }}{{ end }}
 			</div>
-		</section>
+		</main>
 
 		{{ if (and (eq .Params.call_to_action "Map") (isset .Site.Params "google_maps_javascript_api_key")) }}
 			<section class="map-section">
@@ -53,12 +103,26 @@
 		{{ else if eq .Params.call_to_action "Contact" }}
 			<section class="quote-section">
 				<p class="container editable">Protect your rights with trusted legal expertise. Our dedicated team is here to guide you through every step, offering personalised solutions for your legal needs. Schedule your consultation today.</p>
-        <div style="margin-top: 20px;" class="container">
-          <a class="contact-btn" href="/contact/">Contact us</a>
-        </div>
+				<div class="container cta-container">
+					<a class="contact-btn" href="/contact/">Contact us</a>
+				</div>
 			</section>
 		{{ end }}
 
 		{{ block "footer" . }}{{ partialCached "site-footer.html" . }}{{ end }}
+
+		{{/* Netlify Identity widget for CMS authentication */}}
+		<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+		<script>
+			if (window.netlifyIdentity) {
+				window.netlifyIdentity.on("init", function(user) {
+					if (!user) {
+						window.netlifyIdentity.on("login", function() {
+							document.location.href = "/admin/";
+						});
+					}
+				});
+			}
+		</script>
 	</body>
 </html>

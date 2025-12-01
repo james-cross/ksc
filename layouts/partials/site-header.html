@@ -1,20 +1,19 @@
 <header style="background-image: url('{{ $.Site.Params.backgroundImagePath }}'); background-attachment: fixed; background-position: 25% 60%;" {{ if .Params.large_header }}class="main-hero"{{ end }}>
 	<div class="container">
-    <nav>
-      <!-- <img class="logo" src="/uploads/logo.png" alt=""> -->
-      {{ if .Site.Menus.main }}
-      <ul>
-        {{ $currentPage := . }}
-        {{ range .Site.Menus.main }}
-        <li>
-          <a href="{{ .URL }}" title="{{ .Name }} page" class="{{ if $currentPage.IsMenuCurrent "main" . }}active{{ end }}">{{ .Name }}</a>
-        </li>
-        {{ end }}
-      </ul>
-      <h1>{{ $.Site.Data.company.title }}</h1>
-      <p class="sub-heading">Solicitors & Notaries</p>
-      <p class="minor-heading">Kenny Stephenson Chapman</p>
-      <p class="minor-sub-heading">Solicitors & Notaries</p>
+		<nav aria-label="Main navigation">
+			{{ if .Site.Menus.main }}
+			<ul>
+				{{ $currentPage := . }}
+				{{ range .Site.Menus.main }}
+				<li>
+					<a href="{{ .URL }}" {{ if $currentPage.IsMenuCurrent "main" . }}class="active" aria-current="page"{{ end }}>{{ .Name }}</a>
+				</li>
+				{{ end }}
+			</ul>
+			<h1>{{ $.Site.Data.company.title }}</h1>
+			<p class="sub-heading">Solicitors &amp; Notaries</p>
+			<p class="minor-heading">{{ $.Site.Data.company.title }}</p>
+			<p class="minor-sub-heading">Solicitors &amp; Notaries</p>
 			{{ end }}
 		</nav>
 	</div>

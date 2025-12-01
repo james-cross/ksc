@@ -1,10 +1,11 @@
 baseURL = "/"
-languageCode = "en-us"
+languageCode = "en-IE"
 summaryLength = 20
 disqusShortname = ""
-googleAnalytics = ""
-Paginate = 10
-PaginatePath = "/"
+googleAnalytics = "G-5GP5KJZMRW"
+[pagination]
+pagerSize = 10
+path = "/"
 enableRobotsTXT = true
 
 [taxonomies]

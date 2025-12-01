@@ -1,19 +1,10 @@
 {{ define "main" }}
 	<article class="content">
 		<div>{{ .Content }}</div>
-    <button class="scroll-up-button">
-      <i class="arrow-up"></i>
-    </button>
+		<button class="scroll-up-button" aria-label="Scroll to top">
+			<span class="arrow-up"></span>
+		</button>
 	</article>
 
-  <script>
-    const btn = document.querySelector(".scroll-up-button");
-
-    btn.addEventListener("click", () => {
-      document.documentElement.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      })
-    });
-  </script>
+	<script src="{{ "js/scroll-to-top.js" | relURL }}"></script>
 {{ end }}

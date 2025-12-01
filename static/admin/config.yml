@@ -1,0 +1,107 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Enable editorial workflow for draft/review/publish
+publish_mode: editorial_workflow
+
+# Media files location
+media_folder: static/uploads
+public_folder: /uploads
+
+# Site URL for previews
+site_url: https://ksc.ie
+display_url: https://ksc.ie
+logo_url: /uploads/favicon.ico
+
+# Collections
+collections:
+  # Pages collection
+  - name: pages
+    label: Pages
+    files:
+      - name: home
+        label: Home Page
+        file: content/_index.md
+        fields:
+          - { name: title, label: Title, widget: string }
+          - { name: call_to_action, label: Call to Action, widget: select, options: ["Contact", "Map"] }
+          - { name: large_header, label: Large Header, widget: boolean }
+          - { name: body, label: Content, widget: markdown }
+
+      - name: contact
+        label: Contact Page
+        file: content/contact.md
+        fields:
+          - { name: title, label: Title, widget: string }
+          - { name: call_to_action, label: Call to Action, widget: select, options: ["Contact", "Map"] }
+          - { name: large_header, label: Large Header, widget: boolean }
+          - { name: body, label: Content, widget: markdown }
+
+      - name: practice-areas
+        label: Practice Areas
+        file: content/practice-areas.md
+        fields:
+          - { name: title, label: Title, widget: string }
+          - { name: call_to_action, label: Call to Action, widget: select, options: ["Contact", "Map"] }
+          - { name: large_header, label: Large Header, widget: boolean }
+          - { name: body, label: Content, widget: markdown }
+
+      - name: thanks
+        label: Thank You Page
+        file: content/thanks.md
+        fields:
+          - { name: title, label: Title, widget: string }
+          - { name: body, label: Content, widget: markdown }
+
+  # Staff members
+  - name: staff
+    label: Staff Members
+    folder: content
+    filter: { field: type, value: staff }
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: title, label: Name, widget: string }
+      - { name: type, label: Type, widget: hidden, default: staff }
+      - { name: call_to_action, label: Call to Action, widget: select, options: ["Contact", "Map"], default: "Contact" }
+      - { name: large_header, label: Large Header, widget: boolean, default: false }
+      - { name: body, label: Biography, widget: markdown }
+
+  # Staff data (for homepage display)
+  - name: authors
+    label: Staff Directory
+    folder: data/authors
+    create: true
+    extension: yml
+    format: yml
+    slug: "{{weight}}{{slug}}"
+    fields:
+      - { name: name, label: Name, widget: string }
+      - { name: credentials, label: Credentials, widget: string, hint: "e.g. BCL, LLB" }
+      - { name: description, label: Short Description, widget: text, hint: "Brief description shown on homepage" }
+      - { name: image, label: Photo, widget: image }
+      - { name: link, label: Profile Link, widget: string, hint: "e.g. /brian-mccarthy" }
+      - { name: weight, label: Display Order, widget: number, value_type: int, min: 1 }
+      - { name: is_staff_member, label: Show on Homepage, widget: boolean, default: true }
+
+  # Company settings
+  - name: settings
+    label: Settings
+    files:
+      - name: company
+        label: Company Details
+        file: data/company.yml
+        fields:
+          - { name: title, label: Company Name, widget: string }
+          - { name: description, label: Company Description, widget: text }
+          - { name: contact_email_address, label: Contact Email, widget: string }
+          - { name: phone, label: Phone Number, widget: string }
+          - { name: fax, label: Fax Number, widget: string }
+          - { name: address, label: Address, widget: string }
+          - name: social_links
+            label: Social Media Links
+            widget: list
+            fields:
+              - { name: name, label: Platform, widget: select, options: ["Facebook", "Instagram", "LinkedIn", "Twitter", "YouTube"] }
+              - { name: link, label: URL, widget: string }

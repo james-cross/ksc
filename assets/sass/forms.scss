@@ -7,14 +7,14 @@ label {
 .btn,
 input,
 textarea {
-	padding: 10px;
-	margin: 10px 0;
+	padding: $spacing-xs;
+	margin: $spacing-xs 0;
 	box-shadow: 3px 3px 5px 0 rgba(100, 100, 100, 0.2);
 	border: 0;
-	border-radius: 2px;
+	border-radius: $border-radius;
 	width: 100%;
 	max-width: 500px;
-	margin: 0 0 20px 0;
+	margin: 0 0 $spacing-md 0;
 	box-sizing: border-box;
 	font-size: 2rem;
 }
@@ -29,17 +29,64 @@ input[type=submit] {
 
 input[type=submit],
 .btn {
-	padding: 10px 15px;
+	padding: $spacing-xs $spacing-sm;
 	margin: 0;
-	background-color: #7c343a;
+	background-color: $color-primary;
 	font-size: 2rem;
-	color: #fefefe;
+	color: $color-background;
 	cursor: pointer;
 
 	&:hover {
-    box-shadow: 0;
-    transition: 0.2s ease-in-out;
-		color: #fefefe;
-		background-color: #F1CE5C;
+		box-shadow: 0;
+		transition: $transition-fast ease-in-out;
+		color: $color-background;
+		background-color: $color-accent;
+	}
+
+	&:focus {
+		outline: 2px solid $color-text;
+		outline-offset: 2px;
+	}
+
+	&:disabled {
+		opacity: 0.7;
+		cursor: not-allowed;
+	}
+}
+
+// Form validation styles
+.form-error {
+	display: block;
+	color: #c53030;
+	font-size: 1.4rem;
+	margin-top: -$spacing-sm;
+	margin-bottom: $spacing-sm;
+	min-height: 1.8rem;
+}
+
+.input-error {
+	border: 2px solid #c53030 !important;
+}
+
+// Submit button loading state
+.submit-btn {
+	position: relative;
+
+	.btn-loading {
+		display: none;
+	}
+
+	&.is-loading {
+		.btn-text {
+			visibility: hidden;
+		}
+
+		.btn-loading {
+			display: block;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
 	}
 }

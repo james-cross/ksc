@@ -4,27 +4,32 @@
 
 		<div class="columns">
 			<div class="column">
-				<form action="https://api.web3forms.com/submit" method="POST">
-          <!-- replace with correct link -->
-          <input type="hidden" name="redirect" value="https://ksc-waterford.netlify.app/thanks.html">
-          <input type="hidden" name="access_key" value="53d7187d-e753-4370-9509-d3c920e8b535">
+				<form id="contact-form" action="https://api.web3forms.com/submit" method="POST" novalidate>
+					<input type="hidden" name="redirect" value="{{ .Site.BaseURL }}thanks">
+					<input type="hidden" name="access_key" value="{{ getenv "WEB3FORMS_ACCESS_KEY" }}">
+
 					<label for="email_address">Email Address</label>
-					<input id="email_address"type="text" name="email" required>
+					<input id="email_address" type="email" name="email" required autocomplete="email" aria-describedby="email-error">
+					<span id="email-error" class="form-error" role="alert"></span>
 
 					<label for="name">Name</label>
-					<input id="name" type="text" name="name" required>
+					<input id="name" type="text" name="name" required autocomplete="name" aria-describedby="name-error">
+					<span id="name-error" class="form-error" role="alert"></span>
 
 					<label for="message">Message</label>
-					<textarea id="message" name="message" required></textarea>
+					<textarea id="message" name="message" required aria-describedby="message-error"></textarea>
+					<span id="message-error" class="form-error" role="alert"></span>
 
 					<input type="hidden" name="_to" value="{{ $.Site.Data.company.contact_email_address }}">
-          <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+					<input type="checkbox" name="botcheck" class="hidden" style="display: none;" aria-hidden="true" tabindex="-1">
+					<input type="hidden" name="subject" value="New message via ksc.ie">
 
-					<input type="submit" value="Send Message">
-          <input type="hidden" name="subject" value="New message via ksc.ie">
+					<button type="submit" class="btn submit-btn">
+						<span class="btn-text">Send Message</span>
+						<span class="btn-loading" aria-hidden="true">Sending...</span>
+					</button>
 				</form>
 			</div>
-
 
 			<div class="column">
 				<p class="editor-link"><a href="cloudcannon:collections/_data/company.yml" class="btn"><strong>&#9998;</strong> Update Company Details</a></p>
@@ -55,38 +60,20 @@
 		</div>
 	</article>
 
-  <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d9768.81515828724!2d-7.1027945!3d52.2578443!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4842c69764c262f1%3A0xa38ca9e210fb18df!2sKenny%20Stephenson%20Chapman%20Solicitors%20and%20Notary!5e0!3m2!1sen!2suk!4v1724434912101!5m2!1sen!2suk" width="100%" height="550" style="border:0; margin-top: 20px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+	<iframe
+		class="contact-map-embed"
+		src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d9768.81515828724!2d-7.1027945!3d52.2578443!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4842c69764c262f1%3A0xa38ca9e210fb18df!2sKenny%20Stephenson%20Chapman%20Solicitors%20and%20Notary!5e0!3m2!1sen!2suk!4v1724434912101!5m2!1sen!2suk"
+		width="100%"
+		height="550"
+		allowfullscreen=""
+		loading="lazy"
+		referrerpolicy="no-referrer-when-downgrade"
+		title="Map showing location of Kenny Stephenson Chapman"></iframe>
+
+	<script src="{{ "js/contact-form.js" | relURL }}"></script>
 
 	{{ if (and (isset .Site.Params "google_maps_javascript_api_key") (eq .Params.call_to_action "Map")) }}
-		<script>
-			window.mapData = {{ .Params.map | jsonify }};
-
-			function initMap() {
-				var myOptions = {
-					scrollwheel: false,
-					draggable: false,
-					panControl: false,
-					disableDefaultUI: true,
-					styles: [{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#000000"},{"lightness":40}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#000000"},{"lightness":16}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":21}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":16}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":19}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":17}]}],
-					zoom: window.mapData.zoom,
-					maxZoom: window.mapData.zoom,
-					minZoom: window.mapData.zoom,
-					center: new google.maps.LatLng(window.mapData.latitude, window.mapData.longitude),
-					mapTypeId: google.maps.MapTypeId.ROADMAP
-				};
-
-				var map = new google.maps.Map(document.getElementById('map'), myOptions);
-
-				var marker = new google.maps.Marker({
-					map: map,
-					position: new google.maps.LatLng(window.mapData.latitude, window.mapData.longitude)
-				});
-
-				google.maps.event.addDomListener(window, 'resize', function () {
-					map.setCenter(myOptions.center);
-				});
-			}
-		</script>
+		<script src="{{ "js/google-maps.js" | relURL }}"></script>
 		<script async defer src="https://maps.googleapis.com/maps/api/js?key={{ .Site.Params.google_maps_javascript_api_key }}&amp;callback=initMap"></script>
 	{{ end }}
 {{ end }}
