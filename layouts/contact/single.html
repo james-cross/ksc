@@ -6,7 +6,7 @@
 			<div class="column">
 				<form id="contact-form" action="https://api.web3forms.com/submit" method="POST" novalidate>
 					<input type="hidden" name="redirect" value="{{ .Site.BaseURL }}thanks">
-					<input type="hidden" name="access_key" value="{{ getenv "WEB3FORMS_ACCESS_KEY" }}">
+					<input type="hidden" name="access_key" value="{{ getenv "HUGO_WEB3FORMS_ACCESS_KEY" }}">
 
 					<label for="email_address">Email Address</label>
 					<input id="email_address" type="email" name="email" required autocomplete="email" aria-describedby="email-error">
